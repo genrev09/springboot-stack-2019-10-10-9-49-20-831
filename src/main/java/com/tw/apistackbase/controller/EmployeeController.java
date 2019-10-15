@@ -22,4 +22,10 @@ public class EmployeeController {
         else
             return ResponseEntity.ok("Failed to add employees");
     }
+
+    @GetMapping(path = "/getEmployees", produces = {"application/json"})
+    public List<Employee> getEmployees() {
+        return employeeList;
+    }
+    
 }
