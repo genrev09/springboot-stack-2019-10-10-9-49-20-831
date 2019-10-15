@@ -42,5 +42,16 @@ public class EmployeeController {
     private Employee getEmployeeByID(@PathVariable("id") int employeeID) {
         return employeeList.stream().filter(employee -> employee.getId() == employeeID).findFirst().orElse(null);
     }
-    
+
+    @PutMapping("/updateEmployee/{id}")
+    public ResponseEntity<String> updateEmployee(@PathVariable(value = "id") int employeeID, @RequestBody Employee employee) {
+        String message = "Employee ID " + employeeID + " does not exists!";
+        Employee updatedEmployee = getEmployeeByID(employeeID);
+        if (updatedEmployee != null){
+            int employeeIndex = employeeList.indexOf(updatedEmployee);
+            employeeList.set(employeeIndex,employee);
+            message = "Updated employee " + employee.getName();
+        }
+        return ResponseEntity.ok(message);
+    }
 }
