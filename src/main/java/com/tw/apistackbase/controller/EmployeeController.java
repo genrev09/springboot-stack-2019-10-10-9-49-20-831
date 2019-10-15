@@ -27,5 +27,20 @@ public class EmployeeController {
     public List<Employee> getEmployees() {
         return employeeList;
     }
+
+    @DeleteMapping(path = "/removeEmployee/{id}")
+    public ResponseEntity<String> removeEmployee(@PathVariable(value = "id") int employeeID) {
+        String message = "Employee id "+employeeID + " not found";
+        Employee terminatedEmployee = getEmployeeByID(employeeID);
+        if (terminatedEmployee != null){
+            employeeList.remove(terminatedEmployee);
+            message = "You have successfully removed employee "+terminatedEmployee.getName();
+        }
+        return ResponseEntity.ok(message);
+    }
+
+    private Employee getEmployeeByID(@PathVariable("id") int employeeID) {
+        return employeeList.stream().filter(employee -> employee.getId() == employeeID).findFirst().orElse(null);
+    }
     
 }
