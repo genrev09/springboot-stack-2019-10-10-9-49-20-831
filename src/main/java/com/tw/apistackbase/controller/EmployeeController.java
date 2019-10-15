@@ -54,4 +54,10 @@ public class EmployeeController {
         }
         return ResponseEntity.ok(message);
     }
+
+    @ResponseBody
+    @GetMapping("/getEmployee/{id}")
+    public Employee getEmployee(@PathVariable(value = "id") int employeeID) {
+        return getEmployeeByID(employeeID);
+    }
 }
